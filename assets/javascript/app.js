@@ -115,17 +115,18 @@ $(document).ready(function() {
         nextQuestion();
         $('#level').empty();
         $('.clock').css('visibility', 'visible');
+        $('#answerTitle').html('Select an answer');
     }
 
     function nextQuestion() {  
         
+        if (!timerStarted) {
+            timerId = setInterval(clockStarted, 1000);
+        }
+        
         if (currentQuestion < questions.length) {
             timer = 13;
             clock.setTime(15);
-
-            if (!timerStarted) {
-                timerId = setInterval(clockStarted, 1000);
-            }
 
             clock.start();
             $('#questionNumber').html('Question No. ' + (currentQuestion + 1));
@@ -167,9 +168,9 @@ $(document).ready(function() {
             $('.clock').css('visibility', 'hidden');
 
             if (correctAnswers >= 8) {
-            $('#level').html('You are an AZ master!');
+            $('#level').html('You are an AZ master! Nice work.');
             } else {
-                $('#level').html('You are an AZ novice!');
+                $('#level').html('You are an AZ novice! Keep studying.');
             }
 
             clearInterval(timerId);
