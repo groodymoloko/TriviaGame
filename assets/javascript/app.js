@@ -14,6 +14,7 @@ $(document).ready(function() {
     var currentQuestion = 0;
     var newQuestion;
     var timerId = '';
+    var currentAnswer;
 
     // array of questions
     var questions = [
@@ -61,7 +62,7 @@ $(document).ready(function() {
         },
         {
             question: "In Arizona, this is illegal:",
-            choices: ["Walking a snake on a leash", "", "Women wearing pants on Sundays", "Donkeys sleeping in bathtubs"],
+            choices: ["Walking a snake on a leash", "Parking your horse without a permit", "Women wearing pants on Sundays", "Donkeys sleeping in bathtubs"],
             answer: 4,
             tidbit: "Makes complete sense doesn't it?"
         },
@@ -152,7 +153,11 @@ $(document).ready(function() {
             resultId = setTimeout(questionResult, 3000);
             $('#currentQuestion').html("Sorry, you are out of time!");
             $('.choice').empty();
-            $('#1').html("Placeholder for highlighting correct answer");
+            currentAnswer = questions[currentQuestion].choices[questions[currentQuestion].answer - 1];
+            $('#1').html("The correct answer was " + currentAnswer);
+            $('#2').empty();
+            $('#3').empty();
+            $('#4').empty();
         }
         else if (currentQuestion == questions.length) {
             clock.stop();
@@ -192,6 +197,11 @@ $(document).ready(function() {
             clearInterval(timerId);
             resultId = setTimeout(questionResult, 3000);
             $('#currentQuestion').html("Wrong! Try another one!");
+            currentAnswer = questions[currentQuestion].choices[questions[currentQuestion].answer -1];
+            $('#1').html("The correct answer was " + currentAnswer);
+            $('#2').empty();
+            $('#3').empty();
+            $('#4').empty();
         }
     }
 
