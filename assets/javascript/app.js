@@ -8,8 +8,8 @@ $(document).ready(function() {
     var correctAnswers = 0;
     var incorrectAnswers = 0;
     var noAnswers = 0;
-    var questionInterval = 3;
-    var timer = 3;
+    var questionInterval = 10;
+    var timer = 10;
     var timerStarted = false;
     var currentQuestion = 0;
     var newQuestion;
@@ -28,6 +28,48 @@ $(document).ready(function() {
             choices: ["Saguaro", "Mesquite", "Palo Verde", "Agave"],
             answer: 1,
             tidbit: "The saguaro cactus can grow to over 75 feet tall"
+        },
+        {
+            question: "Arizona leads the nation in what?",
+            choices: ["Copper", "Citrus", "Cotton", "Cattle"],
+            answer: 1,
+            tidbit: "The state produces 60% of all copper in the United States"
+        },
+        {
+            question: "The London Bridge now resides where?",
+            choices: ["Lake Roosevelt", "Lake Havasu", "Colorado River", "Lake Powell"],
+            answer: 2,
+            tidbit: "The bridge was moved stone by stone from Europe"
+        },
+        {
+            question: "The population of Arizona is . . .",
+            choices: ["3 million", "5 million", "7 million", "9 million"],
+            answer: 3,
+            tidbit: "In 1900, Arizona only had 122,000 people"
+        },
+        {
+            question: "The highest point in the state is . . .",
+            choices: ["Agazziz Peak", "Mount Baldy", "Mount Humphreys", "Mount Ord"],
+            answer: 3,
+            tidbit: "Humphreys soars to 12,633 feet above sea level outside Flagstaff"
+        },
+        {
+            question: "Arizona has the most species of what?",
+            choices: ["Hummingbirds", "Snakes", "Scorpions", "Bees"],
+            answer: 1,
+            tidbit: "There are more than 300 different types of hummingbirds that call Arizona home"
+        },
+        {
+            question: "In Arizona, this is illegal:",
+            choices: ["Walking a snake on a leash", "", "Women wearing pants on Sundays", "Donkeys sleeping in bathtubs"],
+            answer: 4,
+            tidbit: "Makes complete sense doesn't it?"
+        },
+        {
+            question: "Arizona is roughhly the size of . . .",
+            choices: ["The UK", "Italy", "Bulgaria", "Netherlands"],
+            answer: 2,
+            tidbit: "The state is 113,998 square miles"
         },
         {
             question: "Arizona leads the nation in what?",
@@ -60,34 +102,39 @@ $(document).ready(function() {
      });
     
     function startGame() {
+        
         $(".btn").css('visibility', 'hidden');
         //reset variables
+
         correctAnswers = 0;
         incorrectAnswers = 0;
         noAnswers = 0;
-        questionInterval = 3;
         timer = 3;
-        timerStarted = false;
         currentQuestion = 0;
-        timerId = '';
         clearInterval(timerId);
         nextQuestion();
         $('#level').empty();
+        $('.clock').css('visibility', 'visible');
     }
 
     function nextQuestion() {  
-        timer = 3;
-        clock.setTime(4);
-        if (!timerStarted) {
-            timerId = setInterval(clockStarted, 1000);
-        }
-        clock.start();
-        $('#questionNumber').html('Question No. ' + (currentQuestion + 1));
-        $('#currentQuestion').html(questions[currentQuestion].question);
-        $('#1').html(questions[currentQuestion].choices[0]);
-        $('#2').html(questions[currentQuestion].choices[1]);
-        $('#3').html(questions[currentQuestion].choices[2]);
-        $('#4').html(questions[currentQuestion].choices[3]);
+        
+        if (currentQuestion < questions.length) {
+            timer = 13;
+            clock.setTime(15);
+
+            if (!timerStarted) {
+                timerId = setInterval(clockStarted, 1000);
+            }
+
+            clock.start();
+            $('#questionNumber').html('Question No. ' + (currentQuestion + 1));
+            $('#currentQuestion').html(questions[currentQuestion].question);
+            $('#1').html(questions[currentQuestion].choices[0]);
+            $('#2').html(questions[currentQuestion].choices[1]);
+            $('#3').html(questions[currentQuestion].choices[2]);
+            $('#4').html(questions[currentQuestion].choices[3]);
+         }
     }
 
     function clockStarted() {
@@ -117,13 +164,15 @@ $(document).ready(function() {
             $('#2').empty();
             $('#3').html("No. unanswered");
             $('#4').html(noAnswers);
-            console.log("CurrentQuestion: " + currentQuestion);
+            $('.clock').css('visibility', 'hidden');
 
             if (correctAnswers >= 8) {
             $('#level').html('You are an AZ master!');
             } else {
                 $('#level').html('You are an AZ novice!');
             }
+
+            clearInterval(timerId);
 
         }
     }
@@ -148,6 +197,7 @@ $(document).ready(function() {
     function questionResult() {
         
             currentQuestion++;
+            console.log("current: " + currentQuestion);
             nextQuestion();
         
     }
