@@ -10,15 +10,19 @@ body {
     padding: 10px;
 }
 
+#clockDiv {
+    background-color: rgb(18, 79, 133, 0.4);   
+}
+
 #questionDiv {
     background-color: rgb(42, 141, 141, 0.4);
     border-right-style: solid;
+    border-left-style: solid;
     border-width: 3px;
 }
 
 #answerDiv {
-    background-color: rgb(18, 79, 133, 0.4);
-    
+    background-color: rgb(18, 79, 133, 0.4);   
 }
 
 .choice {

@@ -73,10 +73,10 @@ $(document).ready(function() {
             tidbit: "The state is 113,998 square miles"
         },
         {
-            question: "Arizona leads the nation in what?",
-            choices: ["Copper", "Citrus", "Cotton", "Cattle"],
-            answer: 1,
-            tidbit: "The state produces 60% of all copper in the United States"
+            question: "Arizona lays claims to . . .",
+            choices: ["America's first barrel of tequila", "Best preserved meteor crater in the world", "World's oldest rodeo", "All of the above"],
+            answer: 4,
+            tidbit: "Arizona is indeed a badass place to live"
         }
     ];
 
@@ -102,11 +102,12 @@ $(document).ready(function() {
         questionCompare();
      });
     
+     //start or reset the game
     function startGame() {
         
         $(".btn").css('visibility', 'hidden');
-        //reset variables
 
+        //reset variables
         correctAnswers = 0;
         incorrectAnswers = 0;
         noAnswers = 0;
@@ -119,6 +120,7 @@ $(document).ready(function() {
         $('#answerTitle').html('Select an answer');
     }
 
+    //launch the next question in the array
     function nextQuestion() {  
         
         if (!timerStarted) {
@@ -139,12 +141,10 @@ $(document).ready(function() {
          }
     }
 
+    //the meat and potatos logic
     function clockStarted() {
         if (timer > -1 && currentQuestion < questions.length) {
             timer--;
-            // console.log("time: " + timer);
-            // console.log("currentQuestion: " + currentQuestion);
-            // console.log("questions.length: " + questions.length);
         }
         else if (timer === -1) {
             noAnswers++;
@@ -183,6 +183,7 @@ $(document).ready(function() {
         }
     }
 
+    //see if the user picked a correct answer or not
     function questionCompare() {
         var resultId;
     
@@ -191,6 +192,11 @@ $(document).ready(function() {
             clearInterval(timerId);
             resultId = setTimeout(questionResult, 3000);
             $('#currentQuestion').html("Correctemundo! " + questions[currentQuestion].tidbit);
+            currentAnswer = questions[currentQuestion].choices[questions[currentQuestion].answer - 1];
+            $('#1').html("Nice! The answer was indeed " + currentAnswer);
+            $('#2').empty();
+            $('#3').empty();
+            $('#4').empty();
         }
         else {
             incorrectAnswers++;
@@ -205,10 +211,10 @@ $(document).ready(function() {
         }
     }
 
+    //main call to iterate the question # and launch the next question
     function questionResult() {
         
             currentQuestion++;
-            console.log("current: " + currentQuestion);
             nextQuestion();
         
     }
